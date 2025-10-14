@@ -1,4 +1,5 @@
 from flask import Flask
+from config import Config
 from dotenv import load_dotenv
 import os
 
@@ -6,11 +7,13 @@ import os
 load_dotenv()
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
+app.config.from_object(Config)
 
-@app.route('/')
+@app.route("/")
 def home():
-    return "✅ Flask is running successfully!"
+    return "Hello, Flask with Config!"
 
-if __name__ == '__main__':
-    app.run(debug=True)
+if __name__ == "__main__":
+    # Use environment variable to control debug mode
+    debug_mode = os.getenv("FLASK_ENV") == "development"
+    app.run(debug=debug_mode)
