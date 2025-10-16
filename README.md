@@ -1,147 +1,223 @@
-# 🧾 Stock Management App
+🏪 Stock App — Inventory & Sales Management System
 
-A simple yet powerful **inventory and sales management system** built with **Flask** and **SQLite**.  
-This backend provides APIs for managing **clients**, **products**, **sales**, **purchases**, **inventory**, and a **dashboard overview**.
+A modern Flask + SQLite web application for managing clients, products, inventory, sales, and purchases.
+This project aims to provide a complete business dashboard with clean analytics, quick insights, and easy CRUD operations.
 
----
+🚀 Features
+🧭 Dashboard
 
-## 🚀 Features
+View key business metrics:
 
-### 🧍 Clients
-- ➕ Add a new client (unique email, phone, and address)
-- 🔍 Search clients by name, email, phone, or address
-- 📋 View the 7 most recently added clients
-- 🗑️ Update or delete clients
+Total Clients
 
-### 📦 Products
-- ➕ Add new categories and products
-- 🔍 Search products by name
-- 📋 View the 7 most recently added products (Name, Category, Price, Stock, Description)
-- 🗑️ Update or delete products
+Total Products
 
-### 💰 Sales
-- ➕ Create new sales by selecting a client and adding products with quantity
-- 🔍 Search sales by ID, client, or date
-- 📋 View the 7 most recent sales with ID, client, date, total, and items count
+Total Sales (DZD)
 
-### 🧾 Purchases
-- ➕ Add a new purchase (supplier info, products, quantities, unit prices)
-- 🔍 Search purchases by ID, supplier, or date
-- 📋 View 7 most recent purchases with supplier and total
+Low Stock Items
 
-### 🏷️ Inventory
-- 📊 View total products, low stock items, out-of-stock items, and total inventory value
-- 🔍 Filter inventory (All / Low Stock / Out of Stock)
-- 📋 Display 7 recent products per filter (Name, Category, Stock, Price, etc.)
+Interactive visualizations:
 
-### 📈 Dashboard
-- 🧠 Overview with total counts (clients, products, sales in DZD)
-- 📊 Low Stock Items alert
-- 📋 Sales Overview bar chart
-- 🎯 Inventory Distribution pie chart
-- 🧾 Recent sales and low stock product lists
+Sales Overview (bar chart)
 
----
+Inventory Distribution (circle graph)
 
-## 🏗️ Project Structure
+Quick summaries:
 
+Recent Sales (5 latest)
+
+Low Stock Products (5 lowest)
+
+Add New Sale / New Purchase buttons
+
+👥 Clients
+
+➕ Add new clients (unique email & phone)
+
+🔍 Search clients by name, email, phone, or address
+
+📋 View 7 most recently added clients
+
+✏️ Update or 🗑️ Delete clients
+
+📦 Products
+
+➕ Add categories and products
+
+Products include:
+
+Name
+
+Category
+
+Price (DZD)
+
+Initial Stock
+
+Alert Threshold
+
+Description
+
+🔍 Search products by name
+
+📋 View 7 most recently added products
+
+✏️ Update or 🗑️ Delete products
+
+🧾 Sales
+
+➕ Add a new sale:
+
+Select existing client (by name/email/phone)
+
+Add products & quantities
+
+Auto-calculate total items and price
+
+🔍 Search sales by ID, Client, or Date
+
+📋 View 7 most recent sales
+
+🛒 Purchases
+
+➕ Add a new purchase:
+
+Enter supplier name
+
+Add products with quantity & unit price (DZD)
+
+Auto-calculate total items and price
+
+🔍 Search purchases by ID, Supplier, or Date
+
+📋 View 7 most recent purchases
+
+🏷️ Inventory
+
+View:
+
+Total Products
+
+Low Stock Items
+
+Out of Stock
+
+Inventory Value (DZD)
+
+🔍 Filter products (All, Low Stock, Out of Stock)
+
+📋 View 7 recent products per filter
+
+Data shown:
+
+Name
+
+Category
+
+Current Stock
+
+Alert Threshold
+
+Price
+
+Status
+
+Actions
+
+🧩 Tech Stack
+Component	Technology
+Backend	Flask (Python)
+Database	SQLite
+Environment	Python Dotenv
+Frontend (upcoming)	HTML, CSS, JS (Flask templates or React frontend)
+Version Control	Git + GitHub
+📂 Project Structure
 stock-app/
 │
 ├── backend/
-│ ├── app.py # Main Flask application entry point
-│ ├── database.py # Handles SQLite setup and table creation
-│ ├── routers/
-│ │ ├── clients.py
-│ │ ├── products.py
-│ │ ├── sales.py
-│ │ ├── purchases.py
-│ │ ├── inventory.py
-│ │ └── dashboard.py
-│ ├── static/ # CSS, JS, and images (if needed)
-│ └── templates/ # HTML templates (for web interface)
+│   ├── app.py                # Main Flask app
+│   ├── database.py           # SQLite setup and tables
+│   ├── routers/
+│   │   ├── clients.py
+│   │   ├── products.py
+│   │   ├── sales.py
+│   │   ├── purchases.py
+│   │   ├── inventory.py
+│   │   └── dashboard.py
+│   ├── templates/            # HTML files (future)
+│   └── static/               # CSS, JS, images
 │
 ├── database/
-│ └── stock.db # SQLite database (auto-generated)
+│   └── stock.db              # Auto-created SQLite database
 │
-├── .env # Environment variables (ignored by Git)
-├── .gitignore # Ignore files (venv, db, etc.)
-├── requirements.txt # Python dependencies
-├── README.md # Project documentation
-└── venv/ # Virtual environment (ignored by Git)
+├── .env                      # Environment variables
+├── .gitignore
+├── README.md
+└── venv/                     # Virtual environment
 
----
-
-## ⚙️ Installation
-
-### 1️⃣ Clone the Repository
-
-```bash
-git clone https://github.com/YOUR-USERNAME/stock-app.git
+⚙️ Setup Instructions
+1️⃣ Clone the repo
+git clone https://github.com/GoaTMoha/stock-app.git
 cd stock-app
 
+2️⃣ Create a virtual environment
 python -m venv venv
-.\venv\Scripts\activate  # On Windows
-# or
-source venv/bin/activate  # On macOS/Linux
 
+3️⃣ Activate it
+
+Windows PowerShell
+
+.\venv\Scripts\activate
+
+
+Linux/Mac
+
+source venv/bin/activate
+
+4️⃣ Install dependencies
 pip install -r requirements.txt
 
+5️⃣ Create your .env file
+FLASK_APP=backend/app.py
 FLASK_ENV=development
-DATABASE_PATH=database/stock.db
+SECRET_KEY=supersecretkey123
+DATABASE_URL=sqlite:///database/stock.db
 
+6️⃣ Initialize the database
 python backend/database.py
 
-✅ Database initialized successfully.
-
+7️⃣ Run the app
 flask run
 
-Then visit:
-👉 http://127.0.0.1:5000
+💾 Database Tables
 
-📡 API Overview
+The SQLite database (stock.db) includes:
 
-Each router handles a different part of the system:
+clients — name, email, phone, address
 
-Route File	Endpoint Base	Description
-clients.py	/clients	Manage clients
-products.py	/products	Manage products and categories
-sales.py	/sales	Create and list sales
-purchases.py	/purchases	Manage supplier purchases
-inventory.py	/inventory	View and filter stock levels
-dashboard.py	/dashboard	Display summary and charts
-🧠 Example Request
-➕ Add a Client
-POST /clients/add
-Content-Type: application/json
-{
-  "name": "John Doe",
-  "email": "john@example.com",
-  "phone": "+213654789123",
-  "address": "Algiers, Algeria"
-}
+categories — category names
 
-✅ Response
-{
-  "message": "Client added successfully",
-  "client_id": 1
-}
+products — name, category_id, price, stock, alert_threshold, description
 
-🧰 Tech Stack
+sales — client_id, total_items, total_price, date
 
-Backend: Flask (Python)
+sale_items — link between sales and products
 
-Database: SQLite3
+purchases — supplier, total_items, total_price, date
 
-Environment Management: python-dotenv
+purchase_items — link between purchases and products
 
-ORM / Queries: sqlite3 module (no ORM for simplicity)
+🧠 Future Enhancements
 
-Architecture: Modular Flask routers (RESTful APIs)
+Add user authentication (admin login)
 
-📜 License
+Add analytics dashboard charts (Flask + Chart.js)
 
-This project is licensed under the MIT License — free to use, modify, and share.
+Export reports (PDF, Excel)
 
+Frontend React interface
+
+REST API documentation
 👨‍💻 Author
 
 Hamani Moundir
