@@ -1,149 +1,248 @@
-# 🧾 Stock Management App
+# 🏪 Stock App — Inventory & Sales Management System
 
-A simple yet powerful **inventory and sales management system** built with **Flask** and **SQLite**.  
-This backend provides APIs for managing **clients**, **products**, **sales**, **purchases**, **inventory**, and a **dashboard overview**.
+A modern Flask + SQLAlchemy web application for managing clients, products, inventory, sales, and purchases. This project is built on a scalable "App Factory" pattern, uses an ORM for database safety, and includes user authentication.
 
 ---
 
 ## 🚀 Features
 
-### 🧍 Clients
-- ➕ Add a new client (unique email, phone, and address)
-- 🔍 Search clients by name, email, phone, or address
-- 📋 View the 7 most recently added clients
-- 🗑️ Update or delete clients
-
-### 📦 Products
-- ➕ Add new categories and products
-- 🔍 Search products by name
-- 📋 View the 7 most recently added products (Name, Category, Price, Stock, Description)
-- 🗑️ Update or delete products
-
-### 💰 Sales
-- ➕ Create new sales by selecting a client and adding products with quantity
-- 🔍 Search sales by ID, client, or date
-- 📋 View the 7 most recent sales with ID, client, date, total, and items count
-
-### 🧾 Purchases
-- ➕ Add a new purchase (supplier info, products, quantities, unit prices)
-- 🔍 Search purchases by ID, supplier, or date
-- 📋 View 7 most recent purchases with supplier and total
-
-### 🏷️ Inventory
-- 📊 View total products, low stock items, out-of-stock items, and total inventory value
-- 🔍 Filter inventory (All / Low Stock / Out of Stock)
-- 📋 Display 7 recent products per filter (Name, Category, Stock, Price, etc.)
-
-### 📈 Dashboard
-- 🧠 Overview with total counts (clients, products, sales in DZD)
-- 📊 Low Stock Items alert
-- 📋 Sales Overview bar chart
-- 🎯 Inventory Distribution pie chart
-- 🧾 Recent sales and low stock product lists
+* **🔐 Authentication:** Secure user registration and login (Admin/User roles can be added).
+* **🧭 Dashboard:** View key business metrics: Total Clients, Total Products, Total Sales, and Low Stock Items.
+* **👥 Clients:** Full CRUD (Create, Read, Update, Delete) for customer management.
+* **📦 Products:** Manage products, categories, pricing, and stock levels.
+* **🧾 Sales:** Create new sales linked to clients and products; automatically updates inventory.
+* **🛒 Purchases:** Record new stock purchases from suppliers; automatically updates inventory.
+* **🏷️ Inventory:** View current stock levels, low-stock warnings, and out-of-stock items.
 
 ---
 
-## 🏗️ Project Structure
+## 🧩 Tech Stack
+
+Backend:Flask (Python)
+Database ORM: Flask-SQLAlchemy(Object-Relational Mapper)
+Database System: SQLite
+Migrations: Flask-Migrate(handles database schema changes)
+Authentication: Flask-Login (session management)
+Security: Flask-Bcrypt (password hashing)
+Environment: Python Dotenv
+Frontend: HTML/CSS/JS
+Version Control: Git + GitHub
+
+---
+
+## 📂 Project Structure
+
+The project uses the **App Factory** pattern for scalability and testability.
 
 stock-app/
 │
 ├── backend/
-│ ├── app.py # Main Flask application entry point
-│ ├── database.py # Handles SQLite setup and table creation
-│ ├── routers/
-│ │ ├── clients.py
-│ │ ├── products.py
-│ │ ├── sales.py
-│ │ ├── purchases.py
-│ │ ├── inventory.py
-│ │ └── dashboard.py
-│ ├── static/ # CSS, JS, and images (if needed)
-│ └── templates/ # HTML templates (for web interface)
+│   │
+│   ├── init.py     # ⬅️ App Factory (create_app)
+│   ├── config.py       # Configuration classes
+│   ├── extensions.py   # ⬅️ Holds db, bcrypt, login_manager
+│   ├── models.py       # ⬅️ All database models (SQLAlchemy)
+│   │
+│   ├── routes/         # ⬅️ All app blueprints
+│   │   ├── auth.py     # Login/Register routes
+│   │   ├── clients.py
+│   │   ├── products.py
+│   │   ├── sales.py
+│   │   ├── purchases.py
+│   │   ├── inventory.py
+│   │   └── dashboard.py
+│   │
+│   ├── static/         # CSS, JS, images
+│   └── templates/      # HTML files (login, dashboard, etc.)
 │
 ├── database/
-│ └── stock.db # SQLite database (auto-generated)
+│   └── stock.db        # SQLite database file (managed by Flask-Migrate)
 │
-├── .env # Environment variables (ignored by Git)
-├── .gitignore # Ignore files (venv, db, etc.)
-├── requirements.txt # Python dependencies
-├── README.md # Project documentation
-└── venv/ # Virtual environment (ignored by Git)
+├── migrations/         # ⬅️ Flask-Migrate (Alembic) folder
+│
+├── run.py              # ⬅️ Main entry point to run the app
+├── .env                # Environment variables
+├── requirements.txt
+└── README.md
 
 ---
 
-## ⚙️ Installation
+⚙️ Setup Instructions
 
-### 1️⃣ Clone the Repository
+​1️⃣ Clone the repo
 
-```bash
-git clone https://github.com/YOUR-USERNAME/stock-app.git
+git clone [https://github.com/Goa TMoha
+
+/stock-app.git](https://github.com
+
+/GoaTMoha/stock-app.git)
+
 cd stock-app
 
+
+2️⃣ Create and activate a virtual environment
+
+
+# Create
+
 python -m venv venv
-.\venv\Scripts\activate  # On Windows
-# or
-source venv/bin/activate  # On macOS/Linux
 
-pip install -r requirements.txt
+# Activate (Windows)
 
+.\venv\Scripts\activate
+
+# Activate (Linux/Mac)
+
+source venv/bin/activate
+
+
+3️⃣ Install dependencies
+​(These are the new required packages)
+
+pip install Flask Flask-SQLAlchemy Flask-Migrate Flask-Login Flask-Bcrypt python-dotenv
+
+(Tip: Run pip freeze > requirements.txt to save them)
+
+
+4️⃣ Create your .env file
+Create a file named .env in the root stock-app/ folder and add:
+
+FLASK_APP=run.py
 FLASK_ENV=development
-DATABASE_PATH=database/stock.db
+SECRET_KEY=supersecretkey123
 
-python backend/database.py
+(The DATABASE_URL is now set inside config.py)
 
-✅ Database initialized successfully.
 
+5️⃣ Initialize the Database (New Method)
+Do not run the old database.py file. We now use Flask-Migrate.
+
+# (Windows)
+set FLASK_APP=run.py
+# (Linux/Mac)
+export FLASK_APP=run.py
+
+# 1. Initialize the migrations folder (run this only ONCE)
+flask db init
+
+# 2. Create the first migration (reads models.py)
+flask db migrate -m "Initial database migration"
+
+# 3. Apply the migration to the database (creates all tables)
+flask db upgrade
+
+Your database/stock.db file will be created automatically.
+
+
+6️⃣ Initialize the database with sample data
+```bash
+python init_db.py
+```
+
+7️⃣ Run the app
+```bash
 flask run
+# or
+python run.py
+```
 
-Then visit:
-👉 http://127.0.0.1:5000
+The application will be available at `http://localhost:5000`
 
-📡 API Overview
+## 🔐 Default Login Credentials
 
-Each router handles a different part of the system:
+After running `python init_db.py`, you can login with:
+- **Username**: admin
+- **Email**: admin@stockapp.com
+- **Password**: admin123
 
-Route File	Endpoint Base	Description
-clients.py	/clients	Manage clients
-products.py	/products	Manage products and categories
-sales.py	/sales	Create and list sales
-purchases.py	/purchases	Manage supplier purchases
-inventory.py	/inventory	View and filter stock levels
-dashboard.py	/dashboard	Display summary and charts
-🧠 Example Request
-➕ Add a Client
-POST /clients/add
-Content-Type: application/json
-{
-  "name": "John Doe",
-  "email": "john@example.com",
-  "phone": "+213654789123",
-  "address": "Algiers, Algeria"
-}
+## 🧪 Running Tests
 
-✅ Response
-{
-  "message": "Client added successfully",
-  "client_id": 1
-}
+```bash
+# Run all tests
+python -m pytest tests/ -v
 
-🧰 Tech Stack
+# Run specific test file
+python -m pytest tests/test_backend.py -v
 
-Backend: Flask (Python)
+# Run with coverage
+python -m pytest tests/ --cov=backend
+```
 
-Database: SQLite3
+## 🔧 API Endpoints
 
-Environment Management: python-dotenv
+### Authentication
+- `POST /auth/register` - Register new user
+- `POST /auth/login` - Login user
+- `POST /auth/logout` - Logout user
+- `GET /auth/me` - Get current user info
+- `GET /auth/status` - Check authentication status
 
-ORM / Queries: sqlite3 module (no ORM for simplicity)
+### Clients
+- `POST /clients/add` - Add new client
+- `GET /clients/search?q=query` - Search clients
+- `GET /clients/recent` - Get recent clients
+- `GET /clients/all` - Get all clients
 
-Architecture: Modular Flask routers (RESTful APIs)
+### Products
+- `POST /products/categories/add` - Add new category
+- `POST /products/add` - Add new product
+- `GET /products/search?q=query` - Search products
+- `GET /products/recent` - Get recent products
+- `GET /products/categories` - Get all categories
+- `GET /products/all` - Get all products
 
-📜 License
+### Sales
+- `POST /sales/add` - Add new sale
+- `GET /sales/search?q=query` - Search sales
+- `GET /sales/recent` - Get recent sales
 
-This project is licensed under the MIT License — free to use, modify, and share.
+### Purchases
+- `POST /purchases/add` - Add new purchase
+- `GET /purchases/search?q=query` - Search purchases
+- `GET /purchases/recent` - Get recent purchases
+- `GET /purchases/<id>` - Get purchase details
+
+### Inventory
+- `GET /inventory/overview` - Get inventory overview
+- `GET /inventory/filter?type=all|low|out` - Filter inventory
+- `GET /inventory/search?q=query` - Search inventory
+
+### Dashboard
+- `GET /dashboard/overview` - Get dashboard statistics
+- `GET /dashboard/sales-overview` - Get sales overview
+- `GET /dashboard/inventory-distribution` - Get inventory distribution
+- `GET /dashboard/recent-sales` - Get recent sales
+- `GET /dashboard/low-stock` - Get low stock products
+
+## 🛡️ Security Features
+
+- **Authentication**: Flask-Login with session management
+- **Password Hashing**: Flask-Bcrypt with configurable rounds
+- **CSRF Protection**: Flask-WTF CSRF tokens
+- **Rate Limiting**: Flask-Limiter with configurable limits
+- **Input Validation**: Comprehensive validation on all endpoints
+- **SQL Injection Prevention**: SQLAlchemy ORM with parameterized queries
+
+💾 Database Models (ORM)
+The database schema is now managed by SQLAlchemy models in backend/models.py.
+users: Stores user info with hashed passwords.
+clients: name, email, phone, address
+categories: category names
+products: name, category, price, stock, alert_threshold
+sales: links to client, total price, date
+sale_items: (Association table) links sales to products
+purchases: supplier, total price, date
+purchase_items: (Association table) links purchases to products
+
+
+🧠 Future Enhancements
+Add analytics dashboard charts (Flask + Chart.js)
+Export reports (PDF, Excel)
+Build a full frontend React interface
+Implement user roles and permissions (Admin vs. User)
+
 
 👨‍💻 Author
-
 Hamani Moundir
 📧 Contact: rojer.points@gmail.com
 💻 GitHub: GoaTMoha
