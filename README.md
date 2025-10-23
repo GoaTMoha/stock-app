@@ -71,11 +71,8 @@ stock-app/
 
 ​1️⃣ Clone the repo
 
-git clone [https://github.com/Goa TMoha
-
-/stock-app.git](https://github.com
-
-/GoaTMoha/stock-app.git)
+git clone [https://github.com/GoaTMoha/stock-app.git]
+(https://github.com/GoaTMoha/stock-app.git)
 
 cd stock-app
 
